@@ -1,0 +1,126 @@
+.field {
+  width: 299px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.label {
+  margin: 0;
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+}
+
+.labelLight {
+  color: var(--color-text-primary);
+}
+
+.control {
+  min-height: 48px;
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-glass);
+  background: rgba(255, 255, 255, 0.29);
+  backdrop-filter: blur(var(--blur-sm));
+  box-shadow: 19px 8px 24.9px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-10);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.control:focus-visible,
+.controlActive {
+  border-color: #fff;
+  box-shadow: 19px 8px 24.9px rgba(0, 0, 0, 0.05), 0 0 0 1px #fff;
+}
+
+.controlLight {
+  border-color: #b9b9b9;
+  background: #fff;
+  backdrop-filter: blur(7.65px);
+  min-height: 48px;
+}
+
+.controlLightActive {
+  border-color: #a0a0a0;
+  box-shadow: 19px 8px 24.9px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(160, 160, 160, 0.3);
+}
+
+.value {
+  margin: 0;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.valueLight {
+  color: var(--color-text-primary);
+}
+
+.icon {
+  width: 7px;
+  height: 6px;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.iconLight {
+  filter: brightness(0);
+}
+
+.iconOpen {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-sm);
+  background: rgba(35, 35, 35, 0.95);
+  backdrop-filter: blur(var(--blur-sm));
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  z-index: 25;
+}
+
+.dropdownLight {
+  border-color: #b9b9b9;
+  background: #fff;
+}
+
+.option {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-inverse);
+  text-align: left;
+  padding: 12px 15px;
+  font-size: var(--font-size-15);
+  cursor: pointer;
+}
+
+.option:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.optionLight {
+  color: var(--color-text-primary);
+}
+
+.optionLight:hover {
+  background: #f2f2f2;
+}

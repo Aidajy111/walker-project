@@ -1,0 +1,139 @@
+.section {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  height: 790px;
+  overflow: hidden;
+  color: var(--color-text-inverse);
+  background: #000;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.73;
+}
+
+.heroContent {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1290px;
+}
+
+.title {
+  margin: 0;
+  margin-left: 55px;
+  width: 1174px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-size: var(--font-size-40);
+  font-weight: var(--font-weight-black);
+  text-align: center;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+.filters {
+  margin-top: 78px;
+  width: 1290px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectField {
+  width: 299px;
+}
+
+.inputField {
+  width: 299px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inputLabel {
+  margin: 0;
+  font-size: var(--font-size-10);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+}
+
+.inputControl {
+  min-height: 48px;
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-glass);
+  background: rgba(255, 255, 255, 0.29);
+  backdrop-filter: blur(var(--blur-sm));
+  box-shadow: 19px 8px 24.9px rgba(0, 0, 0, 0.05);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputControl:focus {
+  border-color: #fff;
+  box-shadow: 19px 8px 24.9px rgba(0, 0, 0, 0.05), 0 0 0 1px #fff;
+}
+
+.inputControl::placeholder {
+  color: rgba(247, 247, 247, 0.78);
+  font-weight: var(--font-weight-medium);
+}
+
+.searchButtonWrap {
+  width: 285px;
+  height: 64px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.searchButton {
+  width: 285px;
+  min-height: 48px;
+  padding: 15px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 50%;
+  top: 742px;
+  transform: translateX(-50%);
+  margin: 0;
+  width: 1290px;
+  text-align: center;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
+}
+
+.leftBottomDecor,
+.rightBottomDecor {
+  position: absolute;
+  top: 747px;
+  width: 49.623px;
+  height: 43.835px;
+  transform: rotate(90deg);
+}
+
+.leftBottomDecor {
+  left: 0;
+  transform: rotate(180deg);
+}
+
+.rightBottomDecor {
+  right: -4px;
+}

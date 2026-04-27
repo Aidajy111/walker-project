@@ -1,0 +1,38 @@
+.section {
+  width: 770px;
+  margin: var(--space-80) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.text {
+  margin: 0;
+  width: 100%;
+  font-size: var(--font-size-15);
+  line-height: 1.2914;
+  text-align: justify;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.imageWrap {
+  width: 770px;
+  height: 350px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000;
+}
+
+.imageWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ctaButton {
+  width: 285px;
+  min-height: 48px;
+}

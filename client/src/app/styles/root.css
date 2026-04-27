@@ -1,0 +1,60 @@
+:root {
+  /* Typography */
+  --font-family-base: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-15: 15px;
+  --font-size-20: 20px;
+  --font-size-25: 25px;
+  --font-size-30: 30px;
+  --font-size-40: 40px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Colors */
+  --color-accent: #0fae9f;
+  --color-accent-secondary: #ff6a00;
+  --color-text-primary: #1f1f1f;
+  --color-text-muted: #8a8a8a;
+  --color-text-muted-on-dark: #afafaf;
+  --color-text-inverse: #f7f7f7;
+  --color-bg-page: #e9ecee;
+  --color-surface: #ffffff;
+  --color-overlay-glass: rgba(255, 255, 255, 0.1);
+  --color-overlay-glass-strong: rgba(238, 238, 238, 0.4);
+  --color-border-glass: rgba(255, 255, 255, 0.36);
+  --color-footer-start: #282828;
+  --color-footer-end: #212121;
+
+  /* Radius */
+  --radius-sm: 15px;
+  --radius-md: 22px;
+  --radius-lg: 30px;
+  --radius-pill: 40px;
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-15: 15px;
+  --space-20: 20px;
+  --space-30: 30px;
+  --space-40: 40px;
+  --space-80: 80px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 12.6px rgba(0, 0, 0, 0.05);
+  --shadow-card: 15px 16px 17.3px rgba(0, 0, 0, 0.01);
+
+  /* Blur */
+  --blur-sm: 7.65px;
+  --blur-md: 14.6px;
+  --blur-lg: 15.05px;
+
+  /* Layout */
+  --container-max: 1290px;
+}

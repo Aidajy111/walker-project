@@ -1,0 +1,82 @@
+.card {
+  width: 355px;
+  min-height: 373px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cover {
+  position: relative;
+  width: 355px;
+  height: 191px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.06);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 15px;
+  border-radius: 45px;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  line-height: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--font-size-15);
+  color: var(--color-text-muted);
+  line-height: 1.2;
+  max-height: 56px;
+  overflow: hidden;
+}
+
+.saveButton {
+  margin-top: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 15px;
+}

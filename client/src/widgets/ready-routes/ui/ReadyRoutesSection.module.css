@@ -1,0 +1,75 @@
+.section {
+  width: 770px;
+  margin: var(--space-80) auto 0;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  width: 495px;
+  font-size: var(--font-size-25);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.controlButton {
+  width: 33px;
+  height: 33px;
+  border-radius: var(--radius-pill);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #f3f3f3;
+  transition: background-color 0.2s ease;
+}
+
+.controlButton:hover {
+  background: var(--color-text-primary);
+}
+
+.controlButton img {
+  width: 13px;
+  height: 13px;
+  display: block;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.controlButton:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.prevIcon {
+  transform: rotate(180deg);
+}
+
+.cardsViewport {
+  width: 730px;
+  overflow: hidden;
+}
+
+.cardsTrack {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
