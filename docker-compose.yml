@@ -20,6 +20,7 @@ services:
     container_name: walker_cms
     restart: always
     environment:
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
       DATABASE_CLIENT: ${DB_CLIENT}
       DATABASE_HOST: ${DB_HOST}
       DATABASE_PORT: ${DB_PORT}

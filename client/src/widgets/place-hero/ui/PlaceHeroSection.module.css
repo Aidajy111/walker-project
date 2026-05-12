@@ -57,6 +57,7 @@
   font-size: var(--font-size-15);
   color: var(--color-text-inverse);
   font-weight: var(--font-weight-semibold);
+  line-height: 30px;
 }
 
 .leftBottomDecor,

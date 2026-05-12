@@ -16,6 +16,12 @@
   justify-content: space-between;
 }
 
+.saveFeedback {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
 .title {
   margin: 0;
   width: 495px;

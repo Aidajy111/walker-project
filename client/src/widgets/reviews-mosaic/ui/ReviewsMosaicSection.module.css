@@ -24,3 +24,29 @@
   display: flex;
   gap: 30px;
 }
+
+.bottomRowNoTop {
+  margin-top: 0;
+}
+
+.galleryGrid {
+  display: grid;
+  gap: 30px;
+  justify-items: center;
+}
+
+.galleryTwo {
+  grid-template-columns: 1fr;
+}
+
+.galleryThree {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.galleryFour {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.galleryFive {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}

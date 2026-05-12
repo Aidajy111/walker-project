@@ -1,10 +1,22 @@
+import { Link } from "react-router-dom";
 import { Button } from "../../../shared/ui/button/Button";
 import styles from "./RouteCard.module.css";
 
-export function RouteCard({ image, imageAlt, title, description, chips, href = "#!", onSave }) {
+export function RouteCard({
+  image,
+  imageAlt,
+  title,
+  description,
+  chips,
+  href = "#!",
+  onSave,
+  saveButtonText = "Сохранить маршрут",
+  saveDisabled = false,
+  footer,
+}) {
   return (
     <article className={styles.card}>
-      <a className={styles.cardLink} href={href}>
+      <Link className={styles.cardLink} to={href}>
         <div className={styles.cover}>
           <img className={styles.image} src={image} alt={imageAlt} />
         </div>
@@ -19,10 +31,14 @@ export function RouteCard({ image, imageAlt, title, description, chips, href = "
           <h4 className={styles.title}>{title}</h4>
           <p className={styles.description}>{description}</p>
         </div>
-      </a>
-      <Button className={styles.saveButton} onClick={onSave}>
-        Сохранить маршрут
-      </Button>
+      </Link>
+      {footer ? (
+        <div className={styles.footer}>{footer}</div>
+      ) : (
+        <Button type="button" className={styles.saveButton} onClick={onSave} disabled={saveDisabled}>
+          {saveButtonText}
+        </Button>
+      )}
     </article>
   );
 }

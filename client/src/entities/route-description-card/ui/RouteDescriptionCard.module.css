@@ -1,0 +1,95 @@
+.card {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--font-size-15);
+  line-height: 1.3;
+  color: var(--color-text-muted);
+}
+
+.text strong {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--font-size-20);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.list {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-15);
+  line-height: 1.35;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag {
+  border: 1px solid #d8d8d8;
+  border-radius: 16px;
+  padding: 5px 10px;
+  font-size: var(--font-size-10);
+  color: #5a5a5a;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.notice {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+}
+
+.saveButton {
+  width: 338px;
+}
+
+.reviewButton {
+  width: 280px;
+}
+
+.reviewsTitle {
+  margin: 10px 0 0;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

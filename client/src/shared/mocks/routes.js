@@ -1,6 +1,7 @@
 const baseRoutes = [
   {
     id: "route-1",
+    documentId: "m07on8ot1kow0yxrn5gskf7o",
     image: "/images/datsan.png",
     imageAlt: "Иволгинский дацан",
     title: "Иволгинский дацан",
@@ -18,6 +19,7 @@ const baseRoutes = [
   },
   {
     id: "route-2",
+    documentId: "m07on8ot1kow0yxrn5gskf7o",
     image: "/images/shamanka.png",
     imageAlt: "Скала Шаманка",
     title: "Скала шаманка",
@@ -30,6 +32,7 @@ const baseRoutes = [
   },
   {
     id: "route-3",
+    documentId: "m07on8ot1kow0yxrn5gskf7o",
     image: "/images/datsan.png",
     imageAlt: "Иволгинский дацан",
     title: "Дацан и этно-маршрут",
@@ -42,6 +45,7 @@ const baseRoutes = [
   },
   {
     id: "route-4",
+    documentId: "m07on8ot1kow0yxrn5gskf7o",
     image: "/images/shamanka.png",
     imageAlt: "Скала Шаманка",
     title: "Байкал выходного дня",

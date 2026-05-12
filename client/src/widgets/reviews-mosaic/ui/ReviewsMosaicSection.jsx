@@ -1,7 +1,8 @@
 import { ReviewCard } from "../../../entities/review-card/ui/ReviewCard";
+import { classNames } from "../../../shared/lib/classNames";
 import styles from "./ReviewsMosaicSection.module.css";
 
-const cards = [
+const defaultCards = [
   {
     id: "baikal",
     size: "large",
@@ -47,25 +48,51 @@ const cards = [
   },
 ];
 
-export function ReviewsMosaicSection() {
+export function ReviewsMosaicSection({ title = "Отзывы наших пользователей", cards = defaultCards, variant = "reviews" }) {
+  if (variant === "gallery") {
+    const galleryCards = cards.slice(0, 5);
+    return (
+      <section className={styles.section}>
+        <h2 className={styles.title}>{title}</h2>
+        <div
+          className={classNames(
+            styles.galleryGrid,
+            galleryCards.length <= 2 && styles.galleryTwo,
+            galleryCards.length === 3 && styles.galleryThree,
+            galleryCards.length === 4 && styles.galleryFour,
+            galleryCards.length >= 5 && styles.galleryFive,
+          )}
+        >
+          {galleryCards.map((card) => (
+            <ReviewCard key={card.id} {...card} size="small" />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   const topRow = cards.filter((card) => card.size === "large");
   const bottomRow = cards.filter((card) => card.size === "small");
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>Отзывы наших пользователей</h2>
+      <h2 className={styles.title}>{title}</h2>
 
-      <div className={styles.topRow}>
-        {topRow.map((card) => (
-          <ReviewCard key={card.id} {...card} />
-        ))}
-      </div>
+      {topRow.length > 0 ? (
+        <div className={styles.topRow}>
+          {topRow.map((card) => (
+            <ReviewCard key={card.id} {...card} />
+          ))}
+        </div>
+      ) : null}
 
-      <div className={styles.bottomRow}>
-        {bottomRow.map((card) => (
-          <ReviewCard key={card.id} {...card} />
-        ))}
-      </div>
+      {bottomRow.length > 0 ? (
+        <div className={`${styles.bottomRow} ${topRow.length === 0 ? styles.bottomRowNoTop : ""}`}>
+          {bottomRow.map((card) => (
+            <ReviewCard key={card.id} {...card} />
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 }

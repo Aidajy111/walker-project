@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../shared/ui/button/Button";
 import { classNames } from "../../../shared/lib/classNames";
 import styles from "./Header.module.css";
@@ -12,7 +12,8 @@ const profileIcon = "https://www.figma.com/api/mcp/asset/5e8392b6-c260-4f8d-b96c
 
 export function Header() {
   const { pathname } = useLocation();
-  const isLightNav = pathname === "/" || pathname === "/place";
+  const navigate = useNavigate();
+  const isLightNav = pathname === "/" || pathname.startsWith("/place");
 
   return (
     <header className={styles.header}>
@@ -26,7 +27,7 @@ export function Header() {
         <div className={styles.rightCard}>
           <img className={styles.rightDecor} src={rightDecor} alt="" />
           <div className={styles.actions}>
-            <Button variant="secondary" className={styles.routeButton}>
+            <Button variant="secondary" className={styles.routeButton} onClick={() => navigate("/my-routes")}>
               <span className={styles.routeIconWrap}>
                 <span className={styles.routeIconMask} style={{ maskImage: `url('${routeIconMask}')` }}>
                   <img src={routeIconFill} alt="" />
@@ -34,7 +35,7 @@ export function Header() {
               </span>
               Мои маршруты
             </Button>
-            <Button className={styles.profileButton}>
+            <Button className={styles.profileButton} onClick={() => navigate("/profile")}>
               <img className={styles.profileIcon} src={profileIcon} alt="" />
               Профиль
             </Button>

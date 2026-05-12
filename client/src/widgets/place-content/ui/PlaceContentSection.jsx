@@ -2,44 +2,90 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../shared/ui/button/Button";
 import styles from "./PlaceContentSection.module.css";
 
-const contentImage = "https://www.figma.com/api/mcp/asset/f47d741e-369e-40bb-adea-a48ad9d5885a";
-const placeTag = "Иволгинский дацан";
+function renderTextNode(node, key) {
+  const text = node?.text || "";
+  let content = text;
+  if (node?.bold) content = <strong key={`${key}-b`}>{content}</strong>;
+  if (node?.italic) content = <em key={`${key}-i`}>{content}</em>;
+  if (node?.underline) content = <u key={`${key}-u`}>{content}</u>;
+  if (node?.strikethrough) content = <s key={`${key}-s`}>{content}</s>;
+  if (node?.code) content = <code key={`${key}-c`}>{content}</code>;
+  return <span key={key}>{content}</span>;
+}
 
-export function PlaceContentSection() {
+function renderInline(children, keyPrefix) {
+  if (!Array.isArray(children)) return null;
+  return children.map((child, index) => {
+    const key = `${keyPrefix}-${index}`;
+    if (typeof child?.text === "string") return renderTextNode(child, key);
+    if (Array.isArray(child?.children)) return <span key={key}>{renderInline(child.children, key)}</span>;
+    return null;
+  });
+}
+
+function renderBodyBlock(block, index) {
+  const key = `body-${index}`;
+  const content = renderInline(block?.children, key);
+
+  if (block?.type === "heading") {
+    const level = Math.min(Math.max(Number(block?.level) || 3, 1), 6);
+    const Tag = `h${level}`;
+    return (
+      <Tag key={key} className={styles.bodyHeading}>
+        {content}
+      </Tag>
+    );
+  }
+
+  if (block?.type === "list" && Array.isArray(block?.children)) {
+    const ListTag = block?.format === "ordered" ? "ol" : "ul";
+    return (
+      <ListTag key={key} className={styles.bodyList}>
+        {block.children.map((item, itemIndex) => (
+          <li key={`${key}-li-${itemIndex}`}>{renderInline(item?.children, `${key}-li-${itemIndex}`)}</li>
+        ))}
+      </ListTag>
+    );
+  }
+
+  if (block?.type === "image" && block?.image?.url) {
+    return (
+      <figure key={key} className={styles.bodyImageWrap}>
+        <img src={block.image.url} alt={block.image.alternativeText || ""} />
+      </figure>
+    );
+  }
+
+  if (block?.type === "html" && typeof block?.html === "string") {
+    return <div key={key} className={styles.text} dangerouslySetInnerHTML={{ __html: block.html }} />;
+  }
+
+  return (
+    <p key={key} className={styles.text}>
+      {content}
+    </p>
+  );
+}
+
+export function PlaceContentSection({ bodyBlocks = [], searchTag = "" }) {
   const navigate = useNavigate();
 
   function handleFindRoute() {
     const searchParams = new URLSearchParams();
-    searchParams.set("tags", placeTag);
+    searchParams.set("tags", searchTag);
     searchParams.set("page", "1");
     navigate(`/search?${searchParams.toString()}`);
   }
 
   return (
     <section className={styles.section}>
-      <p className={styles.text}>
-        Вот вам яркий пример современных тенденций — синтетическое тестирование играет определяющее значение для
-        анализа существующих паттернов поведения. Мы вынуждены отталкиваться от того, что синтетическое тестирование,
-        а также свежий взгляд на привычные вещи — безусловно открывает новые горизонты для позиций, занимаемых
-        участниками в отношении поставленных задач! Значимость этих проблем настолько очевидна, что курс на
-        социально-ориентированный национальный проект однозначно фиксирует необходимость соответствующих условий
-        активизации! Предварительные выводы неутешительны: высокое качество позиционных исследований играет
-        определяющее значение для первоочередных требований.
-      </p>
-
-      <div className={styles.imageWrap}>
-        <img src={contentImage} alt="Байкал" />
+      <div className={styles.body}>
+        {Array.isArray(bodyBlocks) && bodyBlocks.length > 0 ? (
+          bodyBlocks.map(renderBodyBlock)
+        ) : (
+          <p className={styles.text}>Контент точки пока не заполнен.</p>
+        )}
       </div>
-
-      <p className={styles.text}>
-        Вот вам яркий пример современных тенденций — синтетическое тестирование играет определяющее значение для
-        анализа существующих паттернов поведения. Мы вынуждены отталкиваться от того, что синтетическое тестирование,
-        а также свежий взгляд на привычные вещи — безусловно открывает новые горизонты для позиций, занимаемых
-        участниками в отношении поставленных задач! Значимость этих проблем настолько очевидна, что курс на
-        социально-ориентированный национальный проект однозначно фиксирует необходимость соответствующих условий
-        активизации! Предварительные выводы неутешительны: высокое качество позиционных исследований играет
-        определяющее значение для первоочередных требований.
-      </p>
 
       <Button className={styles.ctaButton} onClick={handleFindRoute}>
         Найти маршрут

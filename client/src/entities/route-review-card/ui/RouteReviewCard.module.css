@@ -1,0 +1,70 @@
+.card {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 4px 4px 22.6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.authorWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 35px;
+  background: #ff6c6c;
+}
+
+.author {
+  margin: 0;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.ratingWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stars {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.starFilled {
+  color: #f5bf00;
+}
+
+.starEmpty {
+  color: #d8d8d8;
+}
+
+.ratingValue {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.text {
+  margin: 0;
+  font-size: var(--font-size-15);
+  color: var(--color-text-muted);
+  line-height: 1.3;
+}

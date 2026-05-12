@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "saved_routes",
+  "info": {
+    "singularName": "saved-route",
+    "pluralName": "saved-routes",
+    "displayName": "Saved Route",
+    "description": "Маршруты, сохранённые пользователем"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "route": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::route.route",
+      "required": true
+    }
+  }
+}

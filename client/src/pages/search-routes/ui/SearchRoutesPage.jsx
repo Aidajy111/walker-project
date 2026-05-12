@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { RouteCard } from "../../../entities/route-card/ui/RouteCard";
+import { fetchRoutesList } from "../../../shared/api/routesApi";
 import { BlurField } from "../../../shared/ui/blur-field/BlurField";
 import { Button } from "../../../shared/ui/button/Button";
 import { Pagination } from "../../../shared/ui/pagination/Pagination";
@@ -10,6 +11,8 @@ import {
   REGION_OPTIONS,
   SEASON_OPTIONS,
 } from "../../../shared/config/routeFilters";
+import { getRouteHref } from "../../../shared/lib/routeHref";
+import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
 import { mockRoutes } from "../../../shared/mocks/routes";
 import styles from "./SearchRoutesPage.module.css";
 
@@ -42,6 +45,27 @@ export function SearchRoutesPage() {
   const [season, setSeason] = useState(initialFilters.season);
   const [tags, setTags] = useState(initialFilters.tags);
   const [currentPage, setCurrentPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
+  const [routesSource, setRoutesSource] = useState(mockRoutes);
+  const [saveFeedback, setSaveFeedback] = useState("");
+  const [savingDocId, setSavingDocId] = useState(null);
+  const { saveRouteByDocumentId } = useSaveRoute();
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadRoutes() {
+      try {
+        const cmsRoutes = await fetchRoutesList();
+        if (!mounted || cmsRoutes.length === 0) return;
+        setRoutesSource(cmsRoutes);
+      } catch {
+        // fallback to mocks
+      }
+    }
+    loadRoutes();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const filteredRoutes = useMemo(() => {
     const normalizedTags = tags
@@ -49,16 +73,17 @@ export function SearchRoutesPage() {
       .map((tag) => tag.trim().toLowerCase())
       .filter(Boolean);
 
-    return mockRoutes.filter((route) => {
-      const regionPass = !region || route.region === region;
-      const cityPass = city === "Неважно" || !city || route.city === city;
-      const seasonPass = season === "Любой" || !season || route.season === season;
+    return routesSource.filter((route) => {
+      const regionPass = !route.region || !region || route.region === region;
+      const cityPass = !route.city || city === "Неважно" || !city || route.city === city;
+      const seasonPass = !route.season || season === "Любой" || !season || route.season === season;
       const tagsPass =
-        normalizedTags.length === 0 || normalizedTags.every((tag) => route.tags.join(" ").toLowerCase().includes(tag));
+        normalizedTags.length === 0 ||
+        normalizedTags.every((tag) => (Array.isArray(route.tags) ? route.tags : []).join(" ").toLowerCase().includes(tag));
 
       return regionPass && cityPass && seasonPass && tagsPass;
     });
-  }, [region, city, season, tags]);
+  }, [region, city, season, tags, routesSource]);
 
   const totalPages = Math.max(1, Math.ceil(filteredRoutes.length / PAGE_SIZE));
   const normalizedPage = Math.min(currentPage, totalPages);
@@ -74,6 +99,19 @@ export function SearchRoutesPage() {
     next.set("page", "1");
     setSearchParams(next);
     setCurrentPage(1);
+  }
+
+  async function handleSaveRoute(route) {
+    const docId = route.documentId || route.id;
+    setSaveFeedback("");
+    setSavingDocId(docId);
+    const result = await saveRouteByDocumentId(docId);
+    setSavingDocId(null);
+    if (result.ok) {
+      setSaveFeedback("Маршрут добавлен в «Мои маршруты».");
+    } else if (result.error !== "auth") {
+      setSaveFeedback(result.error);
+    }
   }
 
   function handlePageChange(nextPage) {
@@ -161,10 +199,25 @@ export function SearchRoutesPage() {
         <div className={styles.resultsColumn}>
           <section className={styles.resultsPanel}>
             <h1 className={styles.resultsTitle}>Готовые маршруты</h1>
+            {saveFeedback ? (
+              <p className={styles.saveFeedback} role="status">
+                {saveFeedback}
+              </p>
+            ) : null}
             <div className={styles.cardsGrid}>
-              {visibleRoutes.map((route) => (
-                <RouteCard key={route.id} {...route} href="/place" />
-              ))}
+              {visibleRoutes.map((route) => {
+                const docId = route.documentId || route.id;
+                return (
+                  <RouteCard
+                    key={route.id}
+                    {...route}
+                    href={getRouteHref(route)}
+                    onSave={() => handleSaveRoute(route)}
+                    saveDisabled={savingDocId === docId}
+                    saveButtonText={savingDocId === docId ? "Сохранение…" : "Сохранить маршрут"}
+                  />
+                );
+              })}
             </div>
           </section>
 
