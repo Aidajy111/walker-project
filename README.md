@@ -58,6 +58,6 @@ Walker — это веб-приложение, предназначенное д
 
 
 ## Как выглядит фронт 
-![alt text](./images/Снимок экрана 2026-05-14 213626.png)
+![alt text](./images/2026-05-14-213626.png)
 ![alt text](./images/image.png)
 ![alt text](./images/image-2.png)
