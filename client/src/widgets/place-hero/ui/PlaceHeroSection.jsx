@@ -1,7 +1,7 @@
 import styles from "./PlaceHeroSection.module.css";
 
-const leftBottomDecor = "https://www.figma.com/api/mcp/asset/9e196504-fded-4212-94fe-1434dce47aec";
-const rightBottomDecor = "https://www.figma.com/api/mcp/asset/9b2edfa6-c53b-424b-b88e-9ef306aed7f5";
+const leftBottomDecor = "https://www.figma.com/api/mcp/asset/f502387b-a22f-46d8-bc5a-5107b769945a";
+const rightBottomDecor = "https://www.figma.com/api/mcp/asset/51bd924c-a7c0-4f5f-8d35-db58a8835fff";
 
 export function PlaceHeroSection({ title, shortDescription, heroImage }) {
   return (

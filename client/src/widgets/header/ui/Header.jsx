@@ -3,12 +3,13 @@ import { Button } from "../../../shared/ui/button/Button";
 import { classNames } from "../../../shared/lib/classNames";
 import styles from "./Header.module.css";
 
-const logoImage = "https://www.figma.com/api/mcp/asset/72a71bbc-086e-4c65-a64e-facfd15e4034";
-const leftDecor = "https://www.figma.com/api/mcp/asset/ec13cd40-37ee-4716-b2fe-bcaebe777190";
-const rightDecor = "https://www.figma.com/api/mcp/asset/3e521a08-a6f7-4728-861b-456e5476d5c1";
-const routeIconMask = "https://www.figma.com/api/mcp/asset/454f58ea-6bc3-45ed-b05f-89902b72044b";
-const routeIconFill = "https://www.figma.com/api/mcp/asset/8689bdb9-20c2-4e81-b8af-396ed12c0165";
-const profileIcon = "https://www.figma.com/api/mcp/asset/5e8392b6-c260-4f8d-b96c-f56e9078d285";
+/* Ассеты из Figma walker (обновлено по node 0:313 / 0:323 — старые mcp/asset UUID протухают) */
+const logoImage = "https://www.figma.com/api/mcp/asset/fe78098f-64ac-47ea-9d2a-253bc8ae45ca";
+const leftDecor = "https://www.figma.com/api/mcp/asset/00a792f4-cdb2-41c2-9ae1-28585f98455b";
+const rightDecor = "https://www.figma.com/api/mcp/asset/2d43d15d-b141-4a61-af22-30e6834327cc";
+const routeIconMask = "https://www.figma.com/api/mcp/asset/80915a15-d31f-4c87-ac43-27e73a714287";
+const routeIconFill = "https://www.figma.com/api/mcp/asset/54722ece-2140-4dec-adf0-302c60c62eb9";
+const profileIcon = "https://www.figma.com/api/mcp/asset/f47b4d69-bc08-4742-9d0e-a24ce6c14c5b";
 
 export function Header() {
   const { pathname } = useLocation();
@@ -43,13 +44,13 @@ export function Header() {
         </div>
       </div>
       <nav className={classNames(styles.nav, isLightNav ? styles.navLight : styles.navDark)}>
-        <a className={styles.navLink} href="#routes">
+        <a className={styles.navLink} href="/#routes">
           Готовые маршруты
         </a>
-        <a className={styles.navLink} href="#support">
+        <a className={styles.navLink} href="/#support">
           Поддержка
         </a>
-        <a className={styles.navLink} href="#about">
+        <a className={styles.navLink} href="/#about">
           О приложении
         </a>
       </nav>

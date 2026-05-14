@@ -1,8 +1,8 @@
 import styles from "./Footer.module.css";
 
-const logoImage = "https://www.figma.com/api/mcp/asset/ab717b01-0b0f-4b74-831d-fa62ef33501a";
-const mailIcon = "https://www.figma.com/api/mcp/asset/58d09a17-affe-40a0-80b6-e973e1eae96a";
-const phoneIcon = "https://www.figma.com/api/mcp/asset/6ed67273-738d-4e86-bd50-78859541bd52";
+const logoImage = "https://www.figma.com/api/mcp/asset/d9427545-78b9-4547-af47-f94c61c9e8c8";
+const mailIcon = "https://www.figma.com/api/mcp/asset/d6b95cd4-eb16-4c01-978c-977b17f6ed76";
+const phoneIcon = "https://www.figma.com/api/mcp/asset/993582f3-bb26-4bda-9134-08be47e8121c";
 
 export function Footer() {
   return (
@@ -12,18 +12,18 @@ export function Footer() {
           <img className={styles.logo} src={logoImage} alt="Walker" />
         </a>
         <div className={styles.top}>
-          <section>
+          <section id="about" className={styles.anchorSection}>
             <h4 className={styles.title}>Компания</h4>
             <a className={styles.itemLink} href="/">
               Главная
             </a>
-            <a className={styles.itemLink} href="#routes">
+            <a className={styles.itemLink} href="/#routes">
               Маршруты
             </a>
-            <a className={styles.itemLink} href="#!">
+            <a className={styles.itemLink} href="/my-routes">
               Мои маршруты
             </a>
-            <a className={styles.itemLink} href="#about">
+            <a className={styles.itemLink} href="/#about">
               О приложении
             </a>
           </section>
@@ -42,9 +42,9 @@ export function Footer() {
               Горы Алтая
             </a>
           </section>
-          <section>
+          <section id="support" className={styles.anchorSection}>
             <h4 className={styles.title}>Партнерам</h4>
-            <a className={styles.itemLink} href="#support">
+            <a className={styles.itemLink} href="/#support">
               Поддержка
             </a>
             <a className={styles.itemLink} href="#!">

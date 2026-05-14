@@ -39,6 +39,10 @@
   line-height: 1;
 }
 
+.anchorSection {
+  scroll-margin-top: 96px;
+}
+
 .itemLink {
   display: block;
   margin: 0 0 var(--space-30);

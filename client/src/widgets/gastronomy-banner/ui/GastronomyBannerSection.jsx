@@ -1,7 +1,7 @@
 import { Button } from "../../../shared/ui/button/Button";
 import styles from "./GastronomyBannerSection.module.css";
 
-const gastronomyImage = "https://www.figma.com/api/mcp/asset/95c7a356-57ff-44d1-97ab-d20adae6e239";
+const gastronomyImage = "https://www.figma.com/api/mcp/asset/c375c040-28eb-402a-9328-9ec7c7d2a756";
 
 export function GastronomyBannerSection() {
   return (

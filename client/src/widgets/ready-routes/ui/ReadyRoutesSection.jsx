@@ -6,7 +6,7 @@ import { getRouteHref } from "../../../shared/lib/routeHref";
 import { mockRoutes } from "../../../shared/mocks/routes";
 import styles from "./ReadyRoutesSection.module.css";
 
-const arrowDark = "https://www.figma.com/api/mcp/asset/f964996e-be41-4062-827b-3abc753c4511";
+const arrowDark = "https://www.figma.com/api/mcp/asset/8bfaf8c9-a15a-46eb-877b-50994b77c18e";
 
 export function ReadyRoutesSection() {
   const [routes, setRoutes] = useState(mockRoutes.slice(0, 4));

@@ -13,10 +13,10 @@ import { ReviewsMosaicSection } from "../../../widgets/reviews-mosaic/ui/Reviews
 import { SummerDestinationsSection } from "../../../widgets/summer-destinations/ui/SummerDestinationsSection";
 import styles from "./HomePage.module.css";
 
-const heroBackground = "https://www.figma.com/api/mcp/asset/aa932b37-de96-4bd0-899e-7037157082a7";
-const chevronIcon = "https://www.figma.com/api/mcp/asset/0a0e73e8-de47-4aba-9aa9-c3748ddc8589";
-const leftBottomDecor = "https://www.figma.com/api/mcp/asset/19d357a1-4ea5-46b4-91e1-eccec6534e13";
-const rightBottomDecor = "https://www.figma.com/api/mcp/asset/d38f1371-08c2-43db-810f-c22c10a32717";
+const heroBackground = "https://www.figma.com/api/mcp/asset/7b348536-3bf4-4eaf-8672-ad1e2dd3c3a1";
+const chevronIcon = "https://www.figma.com/api/mcp/asset/69142f3e-660b-4cc7-a49b-42c46706e3aa";
+const leftBottomDecor = "https://www.figma.com/api/mcp/asset/f502387b-a22f-46d8-bc5a-5107b769945a";
+const rightBottomDecor = "https://www.figma.com/api/mcp/asset/51bd924c-a7c0-4f5f-8d35-db58a8835fff";
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -105,7 +105,9 @@ export function HomePage() {
         <img className={styles.rightBottomDecor} src={rightBottomDecor} alt="" />
       </div>
       <SummerDestinationsSection />
-      <ReadyRoutesSection />
+      <div id="routes" className={styles.routeAnchor}>
+        <ReadyRoutesSection />
+      </div>
       <GastronomyBannerSection />
       <ReviewsMosaicSection />
     </section>

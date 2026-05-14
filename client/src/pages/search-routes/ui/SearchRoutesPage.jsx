@@ -16,7 +16,7 @@ import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
 import { mockRoutes } from "../../../shared/mocks/routes";
 import styles from "./SearchRoutesPage.module.css";
 
-const chevronIcon = "https://www.figma.com/api/mcp/asset/0a0e73e8-de47-4aba-9aa9-c3748ddc8589";
+const chevronIcon = "https://www.figma.com/api/mcp/asset/69142f3e-660b-4cc7-a49b-42c46706e3aa";
 const PAGE_SIZE = 8;
 
 function extractFilters(searchParams) {

@@ -3,7 +3,7 @@ import { Button } from "../../../shared/ui/button/Button";
 import { DestinationCard } from "../../../entities/destination-card/ui/DestinationCard";
 import styles from "./SummerDestinationsSection.module.css";
 
-const arrowDark = "https://www.figma.com/api/mcp/asset/a9b12c84-0dba-43c9-8fe9-7d6479a58b1d";
+const arrowDark = "https://www.figma.com/api/mcp/asset/8bfaf8c9-a15a-46eb-877b-50994b77c18e";
 
 const cards = [
   {
