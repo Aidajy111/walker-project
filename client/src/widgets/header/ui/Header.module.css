@@ -1,0 +1,175 @@
+.header {
+  position: relative;
+  z-index: 40;
+}
+
+.fixedLayer {
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  right: 20px;
+  height: 88px;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.leftCard,
+.rightCard {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+
+.leftCard {
+  left: 0;
+  width: 288.623px;
+  height: 88px;
+}
+
+.rightCard {
+  right: 0;
+  width: 565px;
+  height: 87px;
+}
+
+.logo {
+  position: absolute;
+  left: 70px;
+  top: 31px;
+  width: 143px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.actions {
+  position: absolute;
+  right: 66px;
+  top: 26px;
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.routeButton,
+.profileButton {
+  min-height: 48px;
+  padding: 10px 30px;
+  font-size: var(--font-size-20);
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.routeButton {
+  background: transparent !important;
+  border-color: var(--color-text-primary) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.routeButton.routeButton:hover {
+  background: transparent !important;
+  border-color: var(--color-text-primary) !important;
+  color: var(--color-text-primary) !important;
+  filter: none !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+.profileButton {
+  background: var(--color-text-primary) !important;
+  border-color: var(--color-text-primary) !important;
+  color: var(--color-text-inverse) !important;
+}
+
+.profileButton.profileButton:hover {
+  background: var(--color-text-primary) !important;
+  border-color: var(--color-text-primary) !important;
+  color: var(--color-text-inverse) !important;
+  filter: none !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+.routeIconWrap {
+  width: 20px;
+  height: 20px;
+  transform: rotate(180deg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.routeIconMask {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.routeIconMask img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.profileIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.leftDecor,
+.rightDecor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.leftDecor {
+  width: 288.623px;
+  height: 88px;
+}
+
+.rightDecor {
+  width: 100%;
+  height: 87px;
+}
+
+.nav {
+  position: absolute;
+  top: 30px;
+  left: 300px;
+  display: flex;
+  gap: 30px;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-semibold);
+  z-index: 10;
+}
+
+.navLight {
+  color: var(--color-text-inverse);
+}
+
+.navDark {
+  color: var(--color-text-primary);
+}
+
+.navLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+}

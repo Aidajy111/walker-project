@@ -1,0 +1,46 @@
+.pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pageButton,
+.navButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #8a8a8a;
+  border-radius: 6px;
+  background: #fff;
+  color: #1f1f1f;
+  font-size: 15px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.navButton {
+  background: #1f1f1f;
+  border-color: #1f1f1f;
+  color: #fff;
+  font-size: 24px;
+  padding-bottom: 2px;
+}
+
+.activePage {
+  border-color: #1f1f1f;
+  background: #1f1f1f;
+  color: #f7f7f7;
+}
+
+.pageButton:hover {
+  border-color: #1f1f1f;
+}
+
+.navButton:hover {
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+}

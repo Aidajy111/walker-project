@@ -1,0 +1,97 @@
+.footer {
+  margin-top: var(--space-80);
+  color: var(--color-text-inverse);
+  background: linear-gradient(181deg, var(--color-footer-start) 3.56%, var(--color-footer-end) 25.7%);
+  border-radius: 30px 30px 0 0;
+  overflow: hidden;
+}
+
+.inner {
+  padding: 92px 0 0;
+  position: relative;
+}
+
+.logoLink {
+  position: absolute;
+  left: 0;
+  top: 92px;
+}
+
+.logo {
+  width: 143px;
+  height: 36px;
+  object-fit: cover;
+}
+
+.top {
+  margin-left: 300px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: var(--space-30);
+  align-items: start;
+}
+
+.title {
+  margin: 0 0 var(--space-30);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.anchorSection {
+  scroll-margin-top: 96px;
+}
+
+.itemLink {
+  display: block;
+  margin: 0 0 var(--space-30);
+  color: var(--color-text-muted-on-dark);
+  font-size: var(--font-size-20);
+  line-height: 1.2;
+  transition: color 0.2s ease;
+}
+
+.itemLink:hover {
+  color: var(--color-text-inverse);
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 var(--space-30);
+  color: var(--color-text-muted-on-dark);
+  font-size: var(--font-size-20);
+}
+
+.contactLink img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.bottom {
+  margin-top: var(--space-30);
+  min-height: 63px;
+  border-top: 1px solid #959595;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-muted-on-dark);
+  font-size: var(--font-size-20);
+}
+
+.privacyLink {
+  color: var(--color-text-muted-on-dark);
+  transition: color 0.2s ease;
+}
+
+.privacyLink:hover {
+  color: var(--color-text-inverse);
+}

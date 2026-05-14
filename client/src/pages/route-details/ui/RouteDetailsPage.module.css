@@ -1,0 +1,195 @@
+.page {
+  min-height: 720px;
+  padding-top: 110px;
+  padding-bottom: 130px;
+}
+
+.container {
+  width: 1290px;
+  margin: 0 auto;
+}
+
+.loading {
+  margin: 0 0 12px;
+  font-size: var(--font-size-15);
+  color: var(--color-text-muted);
+}
+
+.contentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-20);
+}
+
+.leftColumn {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-30);
+  flex-shrink: 0;
+}
+
+.leftBlock {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pointsColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.galleryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumbnailButton {
+  width: 128px;
+  height: 128px;
+  border: 0;
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #b9b9b9;
+  padding: 0;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.thumbnailButton:hover .thumbnailImage {
+  transform: scale(1.06);
+}
+
+.mapBlock {
+  position: relative;
+  width: 502px;
+  height: 470px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.audioDock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  background: #fff;
+  border-top: 1px solid #d8d8d8;
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.audioDockInner {
+  width: var(--container-max);
+  margin: 0 auto;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.audioTitle {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
+}
+
+.audioPlayer {
+  width: 100%;
+  height: 40px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.modalContent {
+  position: relative;
+  width: min(1050px, 92vw);
+  height: min(720px, 86vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalImage {
+  width: 60%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.modalClose,
+.modalArrowLeft,
+.modalArrowRight {
+  position: absolute;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modalClose {
+  top: -10px;
+  right: -10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modalArrowLeft,
+.modalArrowRight {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 70px;
+  border-radius: 12px;
+  font-size: 30px;
+}
+
+.modalArrowLeft {
+  left: 16px;
+}
+
+.modalArrowRight {
+  right: 16px;
+}
+
+.modalClose:hover,
+.modalArrowLeft:hover,
+.modalArrowRight:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.modalArrowLeft:hover {
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.modalArrowRight:hover {
+  transform: translateY(-50%) translateX(2px);
+}

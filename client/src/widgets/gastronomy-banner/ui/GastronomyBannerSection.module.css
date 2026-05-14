@@ -1,0 +1,64 @@
+.section {
+  width: 770px;
+  margin: var(--space-80) auto 0;
+}
+
+.banner {
+  position: relative;
+  display: block;
+  width: 770px;
+  height: 466px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-text-inverse);
+}
+
+.background {
+  position: absolute;
+  left: -25px;
+  top: -164px;
+  width: 820px;
+  height: 678px;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.title {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  margin: 0;
+  width: 495px;
+  font-size: var(--font-size-25);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.description {
+  position: absolute;
+  top: 125px;
+  left: 20px;
+  margin: 0;
+  width: 637px;
+  font-size: var(--font-size-15);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  z-index: 1;
+}
+
+.actionButton {
+  position: absolute;
+  top: 194px;
+  left: 20px;
+  width: 230px;
+  min-height: 47px;
+  z-index: 1;
+}

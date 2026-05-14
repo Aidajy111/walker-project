@@ -1,0 +1,51 @@
+.mapShell {
+  position: relative;
+  width: 502px;
+  height: 470px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  background: #f2f2f2;
+}
+
+.mapRoot {
+  width: 100%;
+  height: 100%;
+}
+
+.mapRoot :global(.leaflet-container) {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-family-base);
+}
+
+/* На некоторых сборках в углу могут появляться картинки в атрибуции — скрываем */
+.mapRoot :global(.leaflet-control-attribution img),
+.mapShell :global(.leaflet-control-attribution img) {
+  display: none !important;
+}
+
+.mapRoot :global(.leaflet-control-zoom a) {
+  color: var(--color-text-primary);
+  border-color: #d8d8d8;
+}
+
+.mapRoot :global(.leaflet-control-zoom a:hover) {
+  background: #f7f7f7;
+}
+
+.mapCredit {
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  z-index: 800;
+  max-width: calc(100% - 56px);
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-text-muted);
+  font-size: 9px;
+  line-height: 1.25;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}

@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # PostgreSQL
+  db:
+    image: postgres:15
+    container_name: walker_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - walker_network
+
+  cms:
+    build: ./cms
+    container_name: walker_cms
+    restart: always
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      DATABASE_CLIENT: ${DB_CLIENT}
+      DATABASE_HOST: ${DB_HOST}
+      DATABASE_PORT: ${DB_PORT}
+      DATABASE_NAME: ${DB_NAME}
+      DATABASE_USERNAME: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASSWORD}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "1337:1337"
+    depends_on:
+      - db
+    networks:
+      - walker_network
+
+  client:
+    build: ./client
+    container_name: walker_client
+    restart: always
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - cms
+    networks:
+      - walker_network
+
+networks:
+  walker_network:
+    driver: bridge
+
+volumes:
+  pgdata:

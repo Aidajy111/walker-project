@@ -1,0 +1,117 @@
+.page {
+  min-height: 100vh;
+  padding: 130px 20px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  height: fit-content;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.tab {
+  flex: 1;
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  min-height: 42px;
+  cursor: pointer;
+}
+
+.activeTab {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 26px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.input {
+  min-height: 48px;
+  border: 1px solid #d8d8d8;
+  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  font-size: var(--font-size-15);
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.forgotLink {
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.message {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.error {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #c62828;
+}
+
+.accountEmail {
+  margin: 0 0 16px;
+  font-size: var(--font-size-15);
+  color: var(--color-text-primary);
+}
+
+.accountActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.secondaryButton {
+  width: 100%;
+}
