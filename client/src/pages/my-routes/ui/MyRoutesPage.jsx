@@ -4,11 +4,12 @@ import { useAuth } from "../../../app/providers/AuthProvider";
 import { Button } from "../../../shared/ui/button/Button";
 import { deleteSavedRoute, fetchMySavedRoutes } from "../../../shared/api/savedRoutesApi";
 import { getRouteHref } from "../../../shared/lib/routeHref";
-import { RouteCard } from "../../../entities/route-card/ui/RouteCard";
+import { RouteCard, RouteCardSkeleton } from "../../../entities/route-card/ui/RouteCard";
 import { Pagination } from "../../../shared/ui/pagination/Pagination";
 import styles from "./MyRoutesPage.module.css";
 
 const PAGE_SIZE = 10;
+const SKELETON_COUNT = 4;
 
 export function MyRoutesPage() {
   const { jwt, isReady } = useAuth();
@@ -67,7 +68,6 @@ export function MyRoutesPage() {
       <div className={styles.card}>
         <h1 className={styles.title}>Мои маршруты</h1>
 
-        {loading && isReady ? <p className={styles.hint}>Загрузка…</p> : null}
         {error ? (
           <p className={styles.error} role="alert">
             {error}
@@ -85,30 +85,40 @@ export function MyRoutesPage() {
         ) : null}
 
         <div className={styles.grid}>
-          {visibleRoutes.map((route) => (
-            <RouteCard
-              key={route.savedDocumentId}
-              {...route}
-              href={getRouteHref(route)}
-              footer={
-                <div className={styles.actions}>
-                  <Button
-                    variant="secondary"
-                    className={styles.deleteButton}
-                    type="button"
-                    disabled={deletingId === route.savedDocumentId}
-                    onClick={() => handleDelete(route.savedDocumentId)}
-                  >
-                    {deletingId === route.savedDocumentId ? "Удаление..." : "Удалить маршрут"}
-                  </Button>
-                </div>
-              }
-            />
-          ))}
+          {loading && isReady
+            ? Array.from({ length: SKELETON_COUNT }, (_, item) => <RouteCardSkeleton key={item} />)
+            : visibleRoutes.map((route) => {
+                const isDeleting = deletingId === route.savedDocumentId;
+                return (
+                  <RouteCard
+                    key={route.savedDocumentId}
+                    {...route}
+                    href={getRouteHref(route)}
+                    footer={
+                      <div className={styles.actions}>
+                        <Button
+                          variant="secondary"
+                          className={styles.deleteButton}
+                          type="button"
+                          disabled={isDeleting}
+                          onClick={() => handleDelete(route.savedDocumentId)}
+                        >
+                          <span className={styles.buttonContent}>
+                            {isDeleting ? <span className={styles.buttonSpinner} aria-hidden="true" /> : null}
+                            <span>Удалить маршрут</span>
+                          </span>
+                        </Button>
+                      </div>
+                    }
+                  />
+                );
+              })}
         </div>
-        <div className={styles.paginationWrap}>
-          <Pagination currentPage={normalizedPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-        </div>
+        {!loading && routes.length > 0 ? (
+          <div className={styles.paginationWrap}>
+            <Pagination currentPage={normalizedPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+          </div>
+        ) : null}
       </div>
     </section>
   );

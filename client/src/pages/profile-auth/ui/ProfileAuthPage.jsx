@@ -98,6 +98,18 @@ export function ProfileAuthPage() {
     }
 
     if (mode === "register") {
+      if (!payload.email?.trim()) {
+        setError("Введите email.");
+        return;
+      }
+      if (!payload.password) {
+        setError("Введите пароль.");
+        return;
+      }
+      if (!payload.privacyAccepted) {
+        setError("Нужно принять политику обработки персональных данных.");
+        return;
+      }
       if (payload.password !== payload.passwordConfirm) {
         setError("Пароли не совпадают.");
         return;
@@ -128,6 +140,11 @@ export function ProfileAuthPage() {
 
     setLoading(true);
     try {
+      if (!payload.email?.trim() || !payload.password) {
+        setError("Введите email и пароль.");
+        setLoading(false);
+        return;
+      }
       await login({ email: payload.email, password: payload.password });
       navigate(redirectTo, { replace: true });
     } catch (err) {

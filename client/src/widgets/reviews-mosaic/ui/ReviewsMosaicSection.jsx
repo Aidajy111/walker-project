@@ -1,5 +1,7 @@
+import { useMemo, useState } from "react";
 import { ReviewCard } from "../../../entities/review-card/ui/ReviewCard";
 import { classNames } from "../../../shared/lib/classNames";
+import { PhotoGalleryModal } from "../../../shared/ui/photo-gallery-modal/PhotoGalleryModal";
 import styles from "./ReviewsMosaicSection.module.css";
 
 const defaultCards = [
@@ -49,6 +51,31 @@ const defaultCards = [
 ];
 
 export function ReviewsMosaicSection({ title = "Отзывы наших пользователей", cards = defaultCards, variant = "reviews" }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalImages = useMemo(
+    () =>
+      cards
+        .filter((card) => card.image)
+        .map((card) => ({
+          id: card.id,
+          src: card.image,
+          alt: card.imageAlt || card.title || "",
+        })),
+    [cards],
+  );
+
+  function openGallery(card) {
+    const nextIndex = modalImages.findIndex((image) => image.id === card.id);
+
+    if (nextIndex < 0) {
+      return;
+    }
+
+    setActiveIndex(nextIndex);
+    setIsModalOpen(true);
+  }
+
   if (variant === "gallery") {
     const galleryCards = cards.slice(0, 5);
     return (
@@ -64,9 +91,17 @@ export function ReviewsMosaicSection({ title = "Отзывы наших поль
           )}
         >
           {galleryCards.map((card) => (
-            <ReviewCard key={card.id} {...card} size="small" />
+            <ReviewCard key={card.id} {...card} size="small" onClick={() => openGallery(card)} />
           ))}
         </div>
+        {isModalOpen ? (
+          <PhotoGalleryModal
+            images={modalImages}
+            activeIndex={activeIndex}
+            onIndexChange={setActiveIndex}
+            onClose={() => setIsModalOpen(false)}
+          />
+        ) : null}
       </section>
     );
   }
@@ -81,7 +116,7 @@ export function ReviewsMosaicSection({ title = "Отзывы наших поль
       {topRow.length > 0 ? (
         <div className={styles.topRow}>
           {topRow.map((card) => (
-            <ReviewCard key={card.id} {...card} />
+            <ReviewCard key={card.id} {...card} onClick={() => openGallery(card)} />
           ))}
         </div>
       ) : null}
@@ -89,9 +124,17 @@ export function ReviewsMosaicSection({ title = "Отзывы наших поль
       {bottomRow.length > 0 ? (
         <div className={`${styles.bottomRow} ${topRow.length === 0 ? styles.bottomRowNoTop : ""}`}>
           {bottomRow.map((card) => (
-            <ReviewCard key={card.id} {...card} />
+            <ReviewCard key={card.id} {...card} onClick={() => openGallery(card)} />
           ))}
         </div>
+      ) : null}
+      {isModalOpen ? (
+        <PhotoGalleryModal
+          images={modalImages}
+          activeIndex={activeIndex}
+          onIndexChange={setActiveIndex}
+          onClose={() => setIsModalOpen(false)}
+        />
       ) : null}
     </section>
   );

@@ -5,6 +5,7 @@ import { RoutePointCard } from "../../../entities/route-point-card/ui/RoutePoint
 import { fetchRouteDetails } from "../../../shared/api/routeDetailsApi";
 import { RouteMap } from "../../../widgets/route-map/ui/RouteMap";
 import { mockRouteDetails } from "../../../shared/mocks/routeDetails";
+import { PhotoGalleryModal } from "../../../shared/ui/photo-gallery-modal/PhotoGalleryModal";
 import styles from "./RouteDetailsPage.module.css";
 
 export function RouteDetailsPage() {
@@ -16,8 +17,6 @@ export function RouteDetailsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activePoint, setActivePoint] = useState(null);
   const mapGallery = useMemo(() => routeDetails.gallery || [], [routeDetails.gallery]);
-
-  const modalLength = modalImages.length;
 
   useEffect(() => {
     let mounted = true;
@@ -44,29 +43,6 @@ export function RouteDetailsPage() {
     };
   }, [documentId]);
 
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if (!isModalOpen || modalLength === 0) {
-        return;
-      }
-
-      if (event.key === "Escape") {
-        setIsModalOpen(false);
-      }
-
-      if (event.key === "ArrowRight") {
-        setActiveIndex((prev) => (prev + 1) % modalLength);
-      }
-
-      if (event.key === "ArrowLeft") {
-        setActiveIndex((prev) => (prev - 1 + modalLength) % modalLength);
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isModalOpen, modalLength]);
-
   function openGallery(images, index) {
     if (!images || images.length === 0) {
       return;
@@ -74,20 +50,6 @@ export function RouteDetailsPage() {
     setModalImages(images);
     setActiveIndex(Math.min(index, images.length - 1));
     setIsModalOpen(true);
-  }
-
-  function showNext() {
-    if (modalLength === 0) {
-      return;
-    }
-    setActiveIndex((prev) => (prev + 1) % modalLength);
-  }
-
-  function showPrev() {
-    if (modalLength === 0) {
-      return;
-    }
-    setActiveIndex((prev) => (prev - 1 + modalLength) % modalLength);
   }
 
   const handleSelectPoint = useCallback((point) => {
@@ -159,25 +121,13 @@ export function RouteDetailsPage() {
         </div>
       ) : null}
 
-      {isModalOpen && modalLength > 0 ? (
-        <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
-          <div className={styles.modalContent} onClick={(event) => event.stopPropagation()}>
-            <button type="button" className={styles.modalClose} onClick={() => setIsModalOpen(false)} aria-label="Закрыть">
-              x
-            </button>
-            <button type="button" className={styles.modalArrowLeft} onClick={showPrev} aria-label="Предыдущее фото">
-              {"<"}
-            </button>
-            <img
-              className={styles.modalImage}
-              src={modalImages[activeIndex].src}
-              alt={modalImages[activeIndex].alt || ""}
-            />
-            <button type="button" className={styles.modalArrowRight} onClick={showNext} aria-label="Следующее фото">
-              {">"}
-            </button>
-          </div>
-        </div>
+      {isModalOpen ? (
+        <PhotoGalleryModal
+          images={modalImages}
+          activeIndex={activeIndex}
+          onIndexChange={setActiveIndex}
+          onClose={() => setIsModalOpen(false)}
+        />
       ) : null}
     </section>
   );

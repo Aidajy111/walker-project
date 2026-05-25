@@ -3,7 +3,6 @@ import { Button } from "../../../shared/ui/button/Button";
 import { classNames } from "../../../shared/lib/classNames";
 import styles from "./Header.module.css";
 
-/* Ассеты из Figma walker (обновлено по node 0:313 / 0:323 — старые mcp/asset UUID протухают) */
 const logoImage = "/images/logo.svg";
 const leftDecor = "/images/logo-bg (1).png";
 const rightDecor = "/images/header-button-bg.png";
@@ -51,7 +50,7 @@ export function Header() {
         <a className={styles.navLink} href="/#support">
           Поддержка
         </a>
-        <a className={styles.navLink} href="/#about">
+        <a className={styles.navLink} href="/about">
           О приложении
         </a>
       </nav>

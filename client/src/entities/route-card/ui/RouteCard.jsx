@@ -2,6 +2,25 @@ import { Link } from "react-router-dom";
 import { Button } from "../../../shared/ui/button/Button";
 import styles from "./RouteCard.module.css";
 
+export function RouteCardSkeleton() {
+  return (
+    <article className={`${styles.card} ${styles.skeletonCard}`} aria-hidden="true">
+      <div className={`${styles.cover} ${styles.skeletonBlock}`} />
+      <div className={styles.skeletonChips}>
+        <span className={`${styles.skeletonChip} ${styles.skeletonBlock}`} />
+        <span className={`${styles.skeletonChip} ${styles.skeletonBlock}`} />
+      </div>
+      <div className={styles.skeletonContent}>
+        <span className={`${styles.skeletonLine} ${styles.skeletonBlock}`} />
+        <span className={`${styles.skeletonLine} ${styles.skeletonLineShort} ${styles.skeletonBlock}`} />
+        <span className={`${styles.skeletonText} ${styles.skeletonBlock}`} />
+        <span className={`${styles.skeletonText} ${styles.skeletonTextShort} ${styles.skeletonBlock}`} />
+      </div>
+      <span className={`${styles.skeletonButton} ${styles.skeletonBlock}`} />
+    </article>
+  );
+}
+
 export function RouteCard({
   image,
   imageAlt,
@@ -12,6 +31,7 @@ export function RouteCard({
   onSave,
   saveButtonText = "Сохранить маршрут",
   saveDisabled = false,
+  isSaving = false,
   footer,
 }) {
   return (
@@ -36,7 +56,10 @@ export function RouteCard({
         <div className={styles.footer}>{footer}</div>
       ) : (
         <Button type="button" className={styles.saveButton} onClick={onSave} disabled={saveDisabled}>
-          {saveButtonText}
+          <span className={styles.saveButtonContent}>
+            {isSaving ? <span className={styles.buttonSpinner} aria-hidden="true" /> : null}
+            <span>{saveButtonText}</span>
+          </span>
         </Button>
       )}
     </article>

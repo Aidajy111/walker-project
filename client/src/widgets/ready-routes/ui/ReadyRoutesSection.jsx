@@ -1,18 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
-import { RouteCard } from "../../../entities/route-card/ui/RouteCard";
+import { RouteCard, RouteCardSkeleton } from "../../../entities/route-card/ui/RouteCard";
 import { fetchRoutesList } from "../../../shared/api/routesApi";
 import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
 import { getRouteHref } from "../../../shared/lib/routeHref";
-import { mockRoutes } from "../../../shared/mocks/routes";
+import { Toast } from "../../../shared/ui/toast/Toast";
 import styles from "./ReadyRoutesSection.module.css";
 
 const arrowDark = "https://www.figma.com/api/mcp/asset/8bfaf8c9-a15a-46eb-877b-50994b77c18e";
+const SKELETON_COUNT = 2;
 
 export function ReadyRoutesSection() {
-  const [routes, setRoutes] = useState(mockRoutes.slice(0, 4));
+  const [routes, setRoutes] = useState([]);
   const [index, setIndex] = useState(0);
   const [saveFeedback, setSaveFeedback] = useState("");
+  const [toastType, setToastType] = useState("success");
   const [savingDocId, setSavingDocId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
   const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
   const maxIndex = Math.max(0, routes.length - 2);
   const offset = useMemo(() => index * 375, [index]);
@@ -20,12 +24,18 @@ export function ReadyRoutesSection() {
   useEffect(() => {
     let mounted = true;
     async function loadRoutes() {
+      setLoading(true);
+      setLoadError("");
       try {
         const cmsRoutes = await fetchRoutesList();
-        if (!mounted || cmsRoutes.length === 0) return;
+        if (!mounted) return;
         setRoutes(cmsRoutes.slice(0, 8));
-      } catch {
-        // Fallback to mocks
+      } catch (err) {
+        if (!mounted) return;
+        setLoadError(err?.message || "Не удалось загрузить маршруты.");
+        setRoutes([]);
+      } finally {
+        if (mounted) setLoading(false);
       }
     }
     loadRoutes();
@@ -49,8 +59,10 @@ export function ReadyRoutesSection() {
     const result = await toggleRouteSaved(route);
     setSavingDocId(null);
     if (result.ok) {
-      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут добавлен в «Мои маршруты».");
+      setToastType("success");
+      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут сохранен в «Мои маршруты».");
     } else if (result.error !== "auth") {
+      setToastType("error");
       setSaveFeedback(result.error);
     }
   }
@@ -69,29 +81,41 @@ export function ReadyRoutesSection() {
         </div>
       </div>
 
-      {saveFeedback ? (
-        <p className={styles.saveFeedback} role="status">
-          {saveFeedback}
+      <Toast message={saveFeedback} type={toastType} onClose={() => setSaveFeedback("")} />
+      {loadError ? (
+        <p className={styles.saveFeedback} role="alert">
+          {loadError}
         </p>
       ) : null}
 
       <div className={styles.cardsViewport}>
-        <div className={styles.cardsTrack} style={{ transform: `translateX(-${offset}px)` }}>
-          {routes.map((route) => {
-            const docId = route.documentId || route.id;
-            const isSaved = isRouteSaved(route);
-            return (
-              <RouteCard
-                key={route.id}
-                {...route}
-                href={getRouteHref(route)}
-                onSave={() => handleSaveRoute(route)}
-                saveDisabled={savingDocId === docId}
-                saveButtonText={savingDocId === docId ? "Сохранение..." : isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
-              />
-            );
-          })}
-        </div>
+        {loading ? (
+          <div className={styles.cardsTrack}>
+            {Array.from({ length: SKELETON_COUNT }, (_, item) => (
+              <RouteCardSkeleton key={item} />
+            ))}
+          </div>
+        ) : routes.length > 0 ? (
+          <div className={styles.cardsTrack} style={{ transform: `translateX(-${offset}px)` }}>
+            {routes.map((route) => {
+              const docId = route.documentId || route.id;
+              const isSaved = isRouteSaved(route);
+              return (
+                <RouteCard
+                  key={route.id}
+                  {...route}
+                  href={getRouteHref(route)}
+                  onSave={() => handleSaveRoute(route)}
+                  saveDisabled={savingDocId === docId}
+                  isSaving={savingDocId === docId}
+                  saveButtonText={isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <p className={styles.saveFeedback}>Маршрутов пока нет.</p>
+        )}
       </div>
     </section>
   );

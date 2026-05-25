@@ -88,8 +88,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   const register = useCallback(async ({ email, password }) => {
-    const username = email.trim().toLowerCase();
-    const data = await registerRequest({ username, email, password });
+    const normalizedEmail = email.trim().toLowerCase();
+    const data = await registerRequest({ username: normalizedEmail, email: normalizedEmail, password });
     if (data?.jwt && data?.user) {
       applySession(data.jwt, data.user);
       return { sessionStarted: true };

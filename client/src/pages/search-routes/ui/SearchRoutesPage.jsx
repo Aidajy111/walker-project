@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { RouteCard } from "../../../entities/route-card/ui/RouteCard";
+import { RouteCard, RouteCardSkeleton } from "../../../entities/route-card/ui/RouteCard";
 import { fetchRoutesList } from "../../../shared/api/routesApi";
 import { BlurField } from "../../../shared/ui/blur-field/BlurField";
 import { Button } from "../../../shared/ui/button/Button";
@@ -13,11 +13,12 @@ import {
 } from "../../../shared/config/routeFilters";
 import { getRouteHref } from "../../../shared/lib/routeHref";
 import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
-import { mockRoutes } from "../../../shared/mocks/routes";
+import { Toast } from "../../../shared/ui/toast/Toast";
 import styles from "./SearchRoutesPage.module.css";
 
 const chevronIcon = "/images/chevronIcon.svg";
 const PAGE_SIZE = 8;
+const SKELETON_COUNT = 8;
 
 function extractFilters(searchParams) {
   const rawBudget = searchParams.get("budget") || DEFAULT_ROUTE_FILTERS.budget;
@@ -45,20 +46,29 @@ export function SearchRoutesPage() {
   const [season, setSeason] = useState(initialFilters.season);
   const [tags, setTags] = useState(initialFilters.tags);
   const [currentPage, setCurrentPage] = useState(Number.isNaN(initialPage) ? 1 : initialPage);
-  const [routesSource, setRoutesSource] = useState(mockRoutes);
+  const [routesSource, setRoutesSource] = useState([]);
+  const [routesLoading, setRoutesLoading] = useState(true);
+  const [routesError, setRoutesError] = useState("");
   const [saveFeedback, setSaveFeedback] = useState("");
+  const [toastType, setToastType] = useState("success");
   const [savingDocId, setSavingDocId] = useState(null);
   const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
 
   useEffect(() => {
     let mounted = true;
     async function loadRoutes() {
+      setRoutesLoading(true);
+      setRoutesError("");
       try {
         const cmsRoutes = await fetchRoutesList();
-        if (!mounted || cmsRoutes.length === 0) return;
+        if (!mounted) return;
         setRoutesSource(cmsRoutes);
-      } catch {
-        // fallback to mocks
+      } catch (err) {
+        if (!mounted) return;
+        setRoutesSource([]);
+        setRoutesError(err?.message || "Не удалось загрузить маршруты.");
+      } finally {
+        if (mounted) setRoutesLoading(false);
       }
     }
     loadRoutes();
@@ -108,8 +118,10 @@ export function SearchRoutesPage() {
     const result = await toggleRouteSaved(route);
     setSavingDocId(null);
     if (result.ok) {
-      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут добавлен в «Мои маршруты».");
+      setToastType("success");
+      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут сохранен в «Мои маршруты».");
     } else if (result.error !== "auth") {
+      setToastType("error");
       setSaveFeedback(result.error);
     }
   }
@@ -199,30 +211,40 @@ export function SearchRoutesPage() {
         <div className={styles.resultsColumn}>
           <section className={styles.resultsPanel}>
             <h1 className={styles.resultsTitle}>Готовые маршруты</h1>
-            {saveFeedback ? (
-              <p className={styles.saveFeedback} role="status">
-                {saveFeedback}
+            <Toast message={saveFeedback} type={toastType} onClose={() => setSaveFeedback("")} />
+            {routesError ? (
+              <p className={styles.saveFeedback} role="alert">
+                {routesError}
               </p>
             ) : null}
             <div className={styles.cardsGrid}>
-              {visibleRoutes.map((route) => {
-                const docId = route.documentId || route.id;
-                const isSaved = isRouteSaved(route);
-                return (
-                  <RouteCard
-                    key={route.id}
-                    {...route}
-                    href={getRouteHref(route)}
-                    onSave={() => handleSaveRoute(route)}
-                    saveDisabled={savingDocId === docId}
-                    saveButtonText={savingDocId === docId ? "Сохранение..." : isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
-                  />
-                );
-              })}
+              {routesLoading
+                ? Array.from({ length: SKELETON_COUNT }, (_, item) => <RouteCardSkeleton key={item} />)
+                : visibleRoutes.map((route) => {
+                    const docId = route.documentId || route.id;
+                    const isSaved = isRouteSaved(route);
+                    const isSaving = savingDocId === docId;
+                    return (
+                      <RouteCard
+                        key={route.id}
+                        {...route}
+                        href={getRouteHref(route)}
+                        onSave={() => handleSaveRoute(route)}
+                        saveDisabled={isSaving}
+                        isSaving={isSaving}
+                        saveButtonText={isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
+                      />
+                    );
+                  })}
             </div>
+            {!routesLoading && filteredRoutes.length === 0 ? (
+              <p className={styles.emptyState}>Маршрутов пока нет.</p>
+            ) : null}
           </section>
 
-          <Pagination currentPage={normalizedPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          {!routesLoading && filteredRoutes.length > 0 ? (
+            <Pagination currentPage={normalizedPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          ) : null}
         </div>
       </div>
     </section>
