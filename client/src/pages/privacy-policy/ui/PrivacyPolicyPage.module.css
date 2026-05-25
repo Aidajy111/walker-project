@@ -1,0 +1,48 @@
+.page {
+  width: min(980px, calc(100% - 40px));
+  margin: 120px auto 0;
+}
+
+.content {
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-primary);
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 32px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.lead {
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.content h2 {
+  margin: 24px 0 10px;
+  font-size: 20px;
+}
+
+.content p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.content a {
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "routes",
+  "info": {
+    "singularName": "route",
+    "pluralName": "routes",
+    "displayName": "Route"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name_route": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "season": {
+      "type": "enumeration",
+      "enum": [
+        "Лето",
+        "Зима",
+        "Весна",
+        "Осень"
+      ]
+    },
+    "cover": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "tags": {
+      "type": "json"
+    },
+    "route_points_links": {
+      "type": "component",
+      "component": "route-point-link.route-points-links",
+      "repeatable": true
+    }
+  }
+}

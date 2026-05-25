@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "points",
+  "info": {
+    "singularName": "point",
+    "pluralName": "points",
+    "displayName": "Point"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "working_hours": {
+      "type": "string"
+    },
+    "average_check": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "short_description": {
+      "type": "string",
+      "maxLength": 255,
+      "required": true
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "booking_phone": {
+      "type": "string"
+    },
+    "coordinate": {
+      "type": "json"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "audio": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files",
+        "audios"
+      ]
+    },
+    "card_variant": {
+      "type": "enumeration",
+      "enum": [
+        "default",
+        "establishment",
+        "discount"
+      ]
+    },
+    "badge_text": {
+      "type": "string"
+    },
+    "discount_text": {
+      "type": "string"
+    },
+    "show_on_home": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    }
+  }
+}

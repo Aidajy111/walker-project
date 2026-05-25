@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding: 16px 10px 12px;
+  padding: 20px;
   border-radius: 20px;
   background: #fff;
   box-shadow: 4px 4px 22.6px rgba(0, 0, 0, 0.03);
@@ -66,4 +66,28 @@
   min-height: 40px;
   padding: 8px 16px;
   font-size: 12px;
+}
+
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 122px;
+}
+
+.buttonSpinner {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid rgba(18, 18, 18, 0.28);
+  border-top-color: var(--color-text-primary);
+  animation: buttonSpin 0.75s linear infinite;
+  flex: 0 0 auto;
+}
+
+@keyframes buttonSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }

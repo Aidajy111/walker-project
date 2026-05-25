@@ -1,8 +1,3 @@
-/**
- * Доступ только к своим записям: список/один элемент фильтруются по user из JWT;
- * при создании user подставляется с сервера; удаление — только своя запись.
- */
-
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::saved-route.saved-route', ({ strapi }) => ({
@@ -11,10 +6,21 @@ export default factories.createCoreController('api::saved-route.saved-route', ({
     if (!user) {
       return ctx.unauthorized();
     }
-    ctx.query.filters = {
-      user: { id: { $eq: user.id } },
-    };
-    return super.find(ctx);
+
+    const entries = await strapi.db.query('api::saved-route.saved-route').findMany({
+      where: { user: { id: user.id } },
+      populate: {
+        route: {
+          populate: {
+            cover: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    const sanitized = await this.sanitizeOutput(entries, ctx);
+    return this.transformResponse(sanitized);
   },
 
   async findOne(ctx) {
@@ -22,10 +28,27 @@ export default factories.createCoreController('api::saved-route.saved-route', ({
     if (!user) {
       return ctx.unauthorized();
     }
-    ctx.query.filters = {
-      user: { id: { $eq: user.id } },
-    };
-    return super.findOne(ctx);
+
+    const paramId = ctx.params.id;
+    const entry = await strapi.db.query('api::saved-route.saved-route').findOne({
+      where: /^\d+$/.test(String(paramId))
+        ? { id: Number(paramId), user: { id: user.id } }
+        : { documentId: paramId, user: { id: user.id } },
+      populate: {
+        route: {
+          populate: {
+            cover: true,
+          },
+        },
+      },
+    });
+
+    if (!entry) {
+      return ctx.notFound();
+    }
+
+    const sanitized = await this.sanitizeOutput(entry, ctx);
+    return this.transformResponse(sanitized);
   },
 
   async create(ctx) {
@@ -33,9 +56,18 @@ export default factories.createCoreController('api::saved-route.saved-route', ({
     if (!user) {
       return ctx.unauthorized();
     }
+
     const routeRef = ctx.request.body?.data?.route;
     if (routeRef === undefined || routeRef === null || routeRef === '') {
       return ctx.badRequest('Передайте маршрут (route).');
+    }
+
+    const route = await strapi.db.query('api::route.route').findOne({
+      where: /^\d+$/.test(String(routeRef)) ? { id: Number(routeRef) } : { documentId: routeRef },
+    });
+
+    if (!route) {
+      return ctx.badRequest('Маршрут не найден.');
     }
 
     const saves = await strapi.db.query('api::saved-route.saved-route').findMany({
@@ -46,7 +78,7 @@ export default factories.createCoreController('api::saved-route.saved-route', ({
     const duplicate = saves.find((entry) => {
       const r = entry.route as { documentId?: string; id?: number } | undefined;
       if (!r) return false;
-      return r.documentId === routeRef || String(r.id) === String(routeRef);
+      return r.documentId === route.documentId || String(r.id) === String(route.id);
     });
 
     if (duplicate) {
@@ -54,8 +86,22 @@ export default factories.createCoreController('api::saved-route.saved-route', ({
       return this.transformResponse(sanitized);
     }
 
-    ctx.request.body.data.user = user.id;
-    return super.create(ctx);
+    const entry = await strapi.db.query('api::saved-route.saved-route').create({
+      data: {
+        user: user.id,
+        route: route.id,
+      },
+      populate: {
+        route: {
+          populate: {
+            cover: true,
+          },
+        },
+      },
+    });
+
+    const sanitized = await this.sanitizeOutput(entry, ctx);
+    return this.transformResponse(sanitized);
   },
 
   async delete(ctx) {

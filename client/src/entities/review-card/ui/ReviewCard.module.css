@@ -20,6 +20,22 @@
   object-fit: cover;
   display: block;
   opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.clickable {
+  cursor: pointer;
+  outline: none;
+}
+
+.clickable:hover .image,
+.clickable:focus-visible .image {
+  opacity: 0.92;
+  transform: scale(1.04);
+}
+
+.clickable:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 104, 12, 0.35);
 }
 
 .overlay {

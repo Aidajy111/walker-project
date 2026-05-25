@@ -23,23 +23,20 @@ export function Footer() {
             <a className={styles.itemLink} href="/my-routes">
               Мои маршруты
             </a>
-            <a className={styles.itemLink} href="/#about">
+            <a className={styles.itemLink} href="/about">
               О приложении
             </a>
           </section>
           <section>
             <h4 className={styles.title}>Маршруты</h4>
-            <a className={styles.itemLink} href="#!">
-              Сахалин
+            <a className={styles.itemLink} href="/search">
+              Готовые маршруты
             </a>
-            <a className={styles.itemLink} href="#!">
-              Озеро Байкал
+            <a className={styles.itemLink} href="/places">
+              Точки
             </a>
-            <a className={styles.itemLink} href="#!">
-              Горнолыжный Сочи
-            </a>
-            <a className={styles.itemLink} href="#!">
-              Горы Алтая
+            <a className={styles.itemLink} href="/#routes">
+              Бурятия
             </a>
           </section>
           <section id="support" className={styles.anchorSection}>
@@ -61,14 +58,10 @@ export function Footer() {
               <img src={phoneIcon} alt="" />
               <span>+7(991) - 788 - 12 - 01</span>
             </a>
-            <a className={styles.contactLink} href="tel:+79917881201">
-              <img src={phoneIcon} alt="" />
-              <span>+7(991) - 788 - 12 - 01</span>
-            </a>
           </section>
         </div>
         <div className={styles.bottom}>
-          <a className={styles.privacyLink} href="#!">
+          <a className={styles.privacyLink} href="/privacy-policy">
             Политика обработки персональных данных
           </a>
           <span>Все права защищены © 2026</span>

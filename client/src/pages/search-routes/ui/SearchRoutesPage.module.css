@@ -143,3 +143,10 @@
   grid-template-columns: repeat(2, minmax(0, 355px));
   gap: 12px 10px;
 }
+
+.emptyState {
+  margin: 16px 0 0;
+  padding-left: 4px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}

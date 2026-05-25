@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "../../../shared/ui/button/Button";
 import { RouteReviewCard } from "../../route-review-card/ui/RouteReviewCard";
 import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
+import { Toast } from "../../../shared/ui/toast/Toast";
 import styles from "./RouteDescriptionCard.module.css";
 
 function renderTextNode(node, key) {
@@ -64,6 +65,7 @@ export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId })
   const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState("");
+  const [toastType, setToastType] = useState("success");
   const isSaved = isRouteSaved(routeDocumentId);
 
   async function handleSaveRoute() {
@@ -76,8 +78,10 @@ export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId })
     try {
       const result = await toggleRouteSaved(routeDocumentId);
       if (result.ok) {
+        setToastType("success");
         setNotice(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут сохранен в разделе «Мои маршруты».");
       } else if (result.error !== "auth") {
+        setToastType("error");
         setNotice(result.error);
       }
     } finally {
@@ -113,11 +117,7 @@ export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId })
         </Button>
       </div>
 
-      {notice ? (
-        <p className={styles.notice} role="status">
-          {notice}
-        </p>
-      ) : null}
+      <Toast message={notice} type={toastType} onClose={() => setNotice("")} />
 
       <h3 className={styles.reviewsTitle}>Отзывы к маршруту</h3>
       <div className={styles.reviewsList}>

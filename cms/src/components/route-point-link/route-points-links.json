@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_route_point_link_route_points_links",
+  "info": {
+    "displayName": "route_points_links"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::point.point"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}
