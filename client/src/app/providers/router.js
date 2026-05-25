@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../../pages/home/ui/HomePage";
 import { MyRoutesPage } from "../../pages/my-routes/ui/MyRoutesPage";
 import { PlaceDetailsPage } from "../../pages/place-details/ui/PlaceDetailsPage";
+import { PointsPage } from "../../pages/points/ui/PointsPage";
 import { ProfileAuthPage } from "../../pages/profile-auth/ui/ProfileAuthPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { RouteDetailsPage } from "../../pages/route-details/ui/RouteDetailsPage";
@@ -21,6 +22,7 @@ export function AppRouter() {
       />
       <Route path="/profile" element={<ProfileAuthPage />} />
       <Route path="/search" element={<SearchRoutesPage />} />
+      <Route path="/places" element={<PointsPage />} />
       <Route path="/place" element={<PlaceDetailsPage />} />
       <Route path="/place/:documentId" element={<PlaceDetailsPage />} />
       <Route path="/route" element={<RouteDetailsPage />} />

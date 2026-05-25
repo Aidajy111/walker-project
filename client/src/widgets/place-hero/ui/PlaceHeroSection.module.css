@@ -69,11 +69,10 @@
 }
 
 .leftBottomDecor {
-  left: 0;
-  transform: rotate(180deg);
+  left: -2px;
+  transform: rotate(90deg);
 }
 
 .rightBottomDecor {
   right: 0;
-  transform: rotate(90deg);
 }

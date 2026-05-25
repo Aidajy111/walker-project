@@ -13,7 +13,7 @@ export function ReadyRoutesSection() {
   const [index, setIndex] = useState(0);
   const [saveFeedback, setSaveFeedback] = useState("");
   const [savingDocId, setSavingDocId] = useState(null);
-  const { saveRouteByDocumentId } = useSaveRoute();
+  const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
   const maxIndex = Math.max(0, routes.length - 2);
   const offset = useMemo(() => index * 375, [index]);
 
@@ -46,10 +46,10 @@ export function ReadyRoutesSection() {
     const docId = route.documentId || route.id;
     setSaveFeedback("");
     setSavingDocId(docId);
-    const result = await saveRouteByDocumentId(docId);
+    const result = await toggleRouteSaved(route);
     setSavingDocId(null);
     if (result.ok) {
-      setSaveFeedback("Маршрут добавлен в «Мои маршруты».");
+      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут добавлен в «Мои маршруты».");
     } else if (result.error !== "auth") {
       setSaveFeedback(result.error);
     }
@@ -79,6 +79,7 @@ export function ReadyRoutesSection() {
         <div className={styles.cardsTrack} style={{ transform: `translateX(-${offset}px)` }}>
           {routes.map((route) => {
             const docId = route.documentId || route.id;
+            const isSaved = isRouteSaved(route);
             return (
               <RouteCard
                 key={route.id}
@@ -86,7 +87,7 @@ export function ReadyRoutesSection() {
                 href={getRouteHref(route)}
                 onSave={() => handleSaveRoute(route)}
                 saveDisabled={savingDocId === docId}
-                saveButtonText={savingDocId === docId ? "Сохранение…" : "Сохранить маршрут"}
+                saveButtonText={savingDocId === docId ? "Сохранение..." : isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
               />
             );
           })}

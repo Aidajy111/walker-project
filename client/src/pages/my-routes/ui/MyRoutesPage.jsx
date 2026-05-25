@@ -5,7 +5,10 @@ import { Button } from "../../../shared/ui/button/Button";
 import { deleteSavedRoute, fetchMySavedRoutes } from "../../../shared/api/savedRoutesApi";
 import { getRouteHref } from "../../../shared/lib/routeHref";
 import { RouteCard } from "../../../entities/route-card/ui/RouteCard";
+import { Pagination } from "../../../shared/ui/pagination/Pagination";
 import styles from "./MyRoutesPage.module.css";
+
+const PAGE_SIZE = 10;
 
 export function MyRoutesPage() {
   const { jwt, isReady } = useAuth();
@@ -13,6 +16,7 @@ export function MyRoutesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [deletingId, setDeletingId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const loadSaved = useCallback(async () => {
     if (!jwt) return;
@@ -21,6 +25,7 @@ export function MyRoutesPage() {
     try {
       const list = await fetchMySavedRoutes(jwt);
       setRoutes(list);
+      setCurrentPage(1);
     } catch (err) {
       setError(err?.message || "Не удалось загрузить сохранённые маршруты.");
       setRoutes([]);
@@ -40,13 +45,22 @@ export function MyRoutesPage() {
     setDeletingId(savedDocumentId);
     try {
       await deleteSavedRoute(jwt, savedDocumentId);
-      setRoutes((prev) => prev.filter((r) => r.savedDocumentId !== savedDocumentId));
+      setRoutes((prev) => {
+        const next = prev.filter((r) => r.savedDocumentId !== savedDocumentId);
+        const nextTotalPages = Math.max(1, Math.ceil(next.length / PAGE_SIZE));
+        setCurrentPage((page) => Math.min(page, nextTotalPages));
+        return next;
+      });
     } catch (err) {
       setError(err?.message || "Не удалось удалить.");
     } finally {
       setDeletingId(null);
     }
   }
+
+  const totalPages = Math.max(1, Math.ceil(routes.length / PAGE_SIZE));
+  const normalizedPage = Math.min(currentPage, totalPages);
+  const visibleRoutes = routes.slice((normalizedPage - 1) * PAGE_SIZE, normalizedPage * PAGE_SIZE);
 
   return (
     <section className={styles.page}>
@@ -71,7 +85,7 @@ export function MyRoutesPage() {
         ) : null}
 
         <div className={styles.grid}>
-          {routes.map((route) => (
+          {visibleRoutes.map((route) => (
             <RouteCard
               key={route.savedDocumentId}
               {...route}
@@ -85,12 +99,15 @@ export function MyRoutesPage() {
                     disabled={deletingId === route.savedDocumentId}
                     onClick={() => handleDelete(route.savedDocumentId)}
                   >
-                    {deletingId === route.savedDocumentId ? "Удаление…" : "Удалить"}
+                    {deletingId === route.savedDocumentId ? "Удаление..." : "Удалить маршрут"}
                   </Button>
                 </div>
               }
             />
           ))}
+        </div>
+        <div className={styles.paginationWrap}>
+          <Pagination currentPage={normalizedPage} totalPages={totalPages} onPageChange={setCurrentPage} />
         </div>
       </div>
     </section>

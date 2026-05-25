@@ -6,7 +6,7 @@ const defaultCards = [
   {
     id: "baikal",
     size: "large",
-    image: "https://www.figma.com/api/mcp/asset/dfc2ac1e-27f3-4dbd-afac-283704a15ae7",
+    image: "/images/ozero_baikal_1921.jpg",
     imageAlt: "Байкал",
     title: "Байкал — сакральный, а не просто озеро",
     description:
@@ -15,7 +15,7 @@ const defaultCards = [
   {
     id: "kheer-shaalgan",
     size: "large",
-    image: "https://www.figma.com/api/mcp/asset/228af365-ac3c-4bb1-bfc8-55ec50c7c618",
+    image: "/images/3wyd8hjsw2i3gm2rxqpjx6at2lc2mazm1.jpg",
     imageAlt: "Хээр шаалган",
     title: "Хээр шаалган",
     description:
@@ -24,7 +24,7 @@ const defaultCards = [
   {
     id: "sleeping-lion",
     size: "small",
-    image: "https://www.figma.com/api/mcp/asset/48cb2fda-8bd1-428f-805e-959a78762cde",
+    image: "/images/870_490_fixedwidth1.jpg",
     imageAlt: "Гора Спящий лев",
     title: "Гора Спящий лев",
     description: 'Сюда приезжают медитировать, "обнуляться" и просить поддержки у духов',
@@ -32,7 +32,7 @@ const defaultCards = [
   {
     id: "merkitskaya-fortress",
     size: "small",
-    image: "https://www.figma.com/api/mcp/asset/f7e376d0-c5ca-4cbd-bb3b-cff1da733760",
+    image: "/images/S600xU_2x1.png",
     imageAlt: "Меркитская крепость",
     title: "Меркитская крепость",
     description: "Там можно увидеть реконструированные землянки гуннов и загадочные керексуры — древние захоронения",
@@ -40,7 +40,7 @@ const defaultCards = [
   {
     id: "eagle-trail",
     size: "small",
-    image: "https://www.figma.com/api/mcp/asset/dda12c86-afe9-4064-8e80-527c05aee0e0",
+    image: "/images/fi1gej2d069ylgdhj9q0srkrvengr6pg1.png",
     imageAlt: "Орлиная экотропа",
     title: "Орлиная экотропа",
     description:

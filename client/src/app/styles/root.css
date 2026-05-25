@@ -19,7 +19,7 @@
   --color-accent: #0fae9f;
   --color-accent-secondary: #ff6a00;
   --color-text-primary: #1f1f1f;
-  --color-text-muted: #8a8a8a;
+  --color-text-muted: #515151;
   --color-text-muted-on-dark: #afafaf;
   --color-text-inverse: #f7f7f7;
   --color-bg-page: #e9ecee;
@@ -57,4 +57,8 @@
 
   /* Layout */
   --container-max: 1290px;
+}
+
+html{
+  scroll-behavior: smooth;
 }
