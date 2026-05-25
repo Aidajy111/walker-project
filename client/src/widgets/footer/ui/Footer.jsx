@@ -1,8 +1,8 @@
 import styles from "./Footer.module.css";
 
-const logoImage = "https://www.figma.com/api/mcp/asset/d9427545-78b9-4547-af47-f94c61c9e8c8";
-const mailIcon = "https://www.figma.com/api/mcp/asset/d6b95cd4-eb16-4c01-978c-977b17f6ed76";
-const phoneIcon = "https://www.figma.com/api/mcp/asset/993582f3-bb26-4bda-9134-08be47e8121c";
+const logoImage = "/images/logo.svg";
+const mailIcon = "/images/mail-icon.svg";
+const phoneIcon = "/images/phone-call-green.svg";
 
 export function Footer() {
   return (

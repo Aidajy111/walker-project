@@ -16,7 +16,7 @@ import { useSaveRoute } from "../../../shared/hooks/useSaveRoute";
 import { mockRoutes } from "../../../shared/mocks/routes";
 import styles from "./SearchRoutesPage.module.css";
 
-const chevronIcon = "https://www.figma.com/api/mcp/asset/69142f3e-660b-4cc7-a49b-42c46706e3aa";
+const chevronIcon = "/images/chevronIcon.svg";
 const PAGE_SIZE = 8;
 
 function extractFilters(searchParams) {
@@ -48,7 +48,7 @@ export function SearchRoutesPage() {
   const [routesSource, setRoutesSource] = useState(mockRoutes);
   const [saveFeedback, setSaveFeedback] = useState("");
   const [savingDocId, setSavingDocId] = useState(null);
-  const { saveRouteByDocumentId } = useSaveRoute();
+  const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
 
   useEffect(() => {
     let mounted = true;
@@ -105,10 +105,10 @@ export function SearchRoutesPage() {
     const docId = route.documentId || route.id;
     setSaveFeedback("");
     setSavingDocId(docId);
-    const result = await saveRouteByDocumentId(docId);
+    const result = await toggleRouteSaved(route);
     setSavingDocId(null);
     if (result.ok) {
-      setSaveFeedback("Маршрут добавлен в «Мои маршруты».");
+      setSaveFeedback(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут добавлен в «Мои маршруты».");
     } else if (result.error !== "auth") {
       setSaveFeedback(result.error);
     }
@@ -207,6 +207,7 @@ export function SearchRoutesPage() {
             <div className={styles.cardsGrid}>
               {visibleRoutes.map((route) => {
                 const docId = route.documentId || route.id;
+                const isSaved = isRouteSaved(route);
                 return (
                   <RouteCard
                     key={route.id}
@@ -214,7 +215,7 @@ export function SearchRoutesPage() {
                     href={getRouteHref(route)}
                     onSave={() => handleSaveRoute(route)}
                     saveDisabled={savingDocId === docId}
-                    saveButtonText={savingDocId === docId ? "Сохранение…" : "Сохранить маршрут"}
+                    saveButtonText={savingDocId === docId ? "Сохранение..." : isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
                   />
                 );
               })}

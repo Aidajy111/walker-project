@@ -4,17 +4,18 @@ import { classNames } from "../../../shared/lib/classNames";
 import styles from "./Header.module.css";
 
 /* Ассеты из Figma walker (обновлено по node 0:313 / 0:323 — старые mcp/asset UUID протухают) */
-const logoImage = "https://www.figma.com/api/mcp/asset/fe78098f-64ac-47ea-9d2a-253bc8ae45ca";
-const leftDecor = "https://www.figma.com/api/mcp/asset/00a792f4-cdb2-41c2-9ae1-28585f98455b";
-const rightDecor = "https://www.figma.com/api/mcp/asset/2d43d15d-b141-4a61-af22-30e6834327cc";
-const routeIconMask = "https://www.figma.com/api/mcp/asset/80915a15-d31f-4c87-ac43-27e73a714287";
-const routeIconFill = "https://www.figma.com/api/mcp/asset/54722ece-2140-4dec-adf0-302c60c62eb9";
-const profileIcon = "https://www.figma.com/api/mcp/asset/f47b4d69-bc08-4742-9d0e-a24ce6c14c5b";
+const logoImage = "/images/logo.svg";
+const leftDecor = "/images/logo-bg (1).png";
+const rightDecor = "/images/header-button-bg.png";
+const routeIconMask = "/images/route-header-btn-icon.svg";
+const routeIconFill = "/images/route-header-btn-icon.svg";
+const profileIcon = "/images/profile-icon.svg";
 
 export function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isLightNav = pathname === "/" || pathname.startsWith("/place");
+  const isPlaceDetailsPage = pathname === "/place" || pathname.startsWith("/place/");
+  const isLightNav = pathname === "/" || isPlaceDetailsPage;
 
   return (
     <header className={styles.header}>
@@ -30,7 +31,7 @@ export function Header() {
           <div className={styles.actions}>
             <Button variant="secondary" className={styles.routeButton} onClick={() => navigate("/my-routes")}>
               <span className={styles.routeIconWrap}>
-                <span className={styles.routeIconMask} style={{ maskImage: `url('${routeIconMask}')` }}>
+                <span className={styles.routeIconMask}>
                   <img src={routeIconFill} alt="" />
                 </span>
               </span>
@@ -44,7 +45,7 @@ export function Header() {
         </div>
       </div>
       <nav className={classNames(styles.nav, isLightNav ? styles.navLight : styles.navDark)}>
-        <a className={styles.navLink} href="/#routes">
+        <a className={styles.navLink} href="/search">
           Готовые маршруты
         </a>
         <a className={styles.navLink} href="/#support">

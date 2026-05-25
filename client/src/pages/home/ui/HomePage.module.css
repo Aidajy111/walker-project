@@ -130,12 +130,11 @@
   top: 747px;
   width: 49.623px;
   height: 43.835px;
-  transform: rotate(90deg);
 }
 
 .leftBottomDecor {
-  left: 0;
-  transform: rotate(180deg);
+  left: -2px;
+  transform: rotate(90deg);
 }
 
 .rightBottomDecor {

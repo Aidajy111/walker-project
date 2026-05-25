@@ -60,6 +60,15 @@ export async function fetchMySavedRoutes(jwt) {
     .filter(Boolean);
 }
 
+export async function fetchSavedRouteIndex(jwt) {
+  const routes = await fetchMySavedRoutes(jwt);
+  return routes.reduce((acc, route) => {
+    if (route.documentId) acc[String(route.documentId)] = route.savedDocumentId;
+    if (route.id) acc[String(route.id)] = route.savedDocumentId;
+    return acc;
+  }, {});
+}
+
 export async function saveRoute(jwt, routeDocumentId) {
   const response = await fetch(`${CMS_URL}/api/saved-routes`, {
     method: "POST",

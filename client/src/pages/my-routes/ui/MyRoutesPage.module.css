@@ -49,6 +49,12 @@
   gap: 12px 10px;
 }
 
+.paginationWrap {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
 .actions {
   display: flex;
   gap: 8px;

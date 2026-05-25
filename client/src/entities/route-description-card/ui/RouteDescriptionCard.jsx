@@ -61,9 +61,10 @@ function renderBlock(block, index) {
 
 export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId }) {
   const bodyBlocks = Array.isArray(summary?.bodyBlocks) ? summary.bodyBlocks : [];
-  const { saveRouteByDocumentId } = useSaveRoute();
+  const { isRouteSaved, toggleRouteSaved } = useSaveRoute();
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState("");
+  const isSaved = isRouteSaved(routeDocumentId);
 
   async function handleSaveRoute() {
     setNotice("");
@@ -73,9 +74,9 @@ export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId })
     }
     setSaving(true);
     try {
-      const result = await saveRouteByDocumentId(routeDocumentId);
+      const result = await toggleRouteSaved(routeDocumentId);
       if (result.ok) {
-        setNotice("Маршрут сохранён в разделе «Мои маршруты».");
+        setNotice(result.action === "deleted" ? "Маршрут удален из «Мои маршруты»." : "Маршрут сохранен в разделе «Мои маршруты».");
       } else if (result.error !== "auth") {
         setNotice(result.error);
       }
@@ -105,7 +106,7 @@ export function RouteDescriptionCard({ summary, reviews = [], routeDocumentId })
           onClick={handleSaveRoute}
           disabled={saving || !routeDocumentId}
         >
-          {saving ? "Сохранение…" : "Сохранить маршрут"}
+          {saving ? "Сохранение..." : isSaved ? "Удалить маршрут" : "Сохранить маршрут"}
         </Button>
         <Button variant="secondary" className={styles.reviewButton}>
           Добавить отзыв
