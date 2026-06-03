@@ -5,7 +5,7 @@ import { fetchHomePoints } from "../../../shared/api/pointsApi";
 import { Button } from "../../../shared/ui/button/Button";
 import styles from "./SummerDestinationsSection.module.css";
 
-const arrowDark = "https://www.figma.com/api/mcp/asset/8bfaf8c9-a15a-46eb-877b-50994b77c18e";
+const arrowDark = "/images/arrow-slider-dark(1).svg";
 
 export function SummerDestinationsSection() {
   const navigate = useNavigate();
