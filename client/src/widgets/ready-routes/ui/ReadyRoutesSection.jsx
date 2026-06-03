@@ -6,7 +6,7 @@ import { getRouteHref } from "../../../shared/lib/routeHref";
 import { Toast } from "../../../shared/ui/toast/Toast";
 import styles from "./ReadyRoutesSection.module.css";
 
-const arrowDark = "https://www.figma.com/api/mcp/asset/8bfaf8c9-a15a-46eb-877b-50994b77c18e";
+const arrowDark = "/images/arrow-slider-dark(1).svg";
 const SKELETON_COUNT = 2;
 
 export function ReadyRoutesSection() {
